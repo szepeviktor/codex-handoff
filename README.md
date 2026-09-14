@@ -16,6 +16,20 @@ directory.
 - Matches by the session root directory.
 - Shows a hook status message after the first prompt when handoff context was loaded.
 
+## Why Not Compact?
+
+Compaction is useful when you want to keep working in the same conversation, but
+it still starts from the conversation you already filled. A handoff is better
+when you want a fresh session that carries only the durable facts you chose to
+preserve.
+
+Compared with compaction, `codex-handoff`:
+
+- Starts the next session with less inherited noise.
+- Carries only an explicit, reviewable handoff block.
+- Avoids spending another model call to summarize old context at startup.
+- Lets you skip the handoff for one session with `CODEX_HANDOFF=0`.
+
 ## Usage
 
 At the end of a useful session, ask Codex:
