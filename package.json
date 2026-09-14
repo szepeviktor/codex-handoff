@@ -1,0 +1,20 @@
+{
+  "name": "codex-handoff",
+  "version": "0.1.0",
+  "description": "Token-saving, session-root-aware handoff for Codex sessions.",
+  "license": "MIT",
+  "author": "Viktor Szepe",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/szepeviktor/codex-handoff.git"
+  },
+  "bin": {
+    "codex-handoff-start": "bin/codex-handoff-start.js"
+  },
+  "scripts": {
+    "test": "node --check bin/codex-handoff-start.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

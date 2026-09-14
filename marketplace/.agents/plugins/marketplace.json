@@ -1,0 +1,20 @@
+{
+  "name": "codex-handoff",
+  "interface": {
+    "displayName": "Codex Handoff"
+  },
+  "plugins": [
+    {
+      "name": "codex-handoff",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/szepeviktor/codex-handoff"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "codex-handoff",
+  "version": "0.1.0",
+  "description": "Token-saving session-root handoff for Codex sessions using explicit handoff markers.",
+  "author": {
+    "name": "Viktor Szepe",
+    "url": "https://github.com/szepeviktor"
+  },
+  "homepage": "https://github.com/szepeviktor/codex-handoff",
+  "repository": "https://github.com/szepeviktor/codex-handoff",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "handoff",
+    "tokens",
+    "session",
+    "context"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codex Handoff",
+    "shortDescription": "Save tokens by carrying only explicit session-root handoffs.",
+    "longDescription": "Codex Handoff saves tokens by loading only explicit codex-handoff blocks from previous sessions started in the same root directory.",
+    "developerName": "Viktor Szepe",
+    "category": "Productivity",
+    "capabilities": [
+      "Hooks",
+      "Skills"
+    ],
+    "websiteURL": "https://github.com/szepeviktor/codex-handoff",
+    "defaultPrompt": [
+      "Use the handoff skill to preserve only useful context."
+    ],
+    "brandColor": "#2563EB"
+  }
+}
