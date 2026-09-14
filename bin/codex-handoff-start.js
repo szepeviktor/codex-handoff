@@ -16,6 +16,11 @@ main().catch((error) => {
 });
 
 async function main() {
+  if (handoffDisabled()) {
+    finish();
+    return;
+  }
+
   const hook = parseJson(await readStdin()) || {};
   const cwd = currentCwd(hook);
   const sessionRoot = path.resolve(cwd);
@@ -233,6 +238,13 @@ function finish(extra = {}) {
 
 function defaultCodexHome() {
   return process.env.CODEX_HOME || path.join(os.homedir(), '.codex');
+}
+
+function handoffDisabled() {
+  const value = process.env.CODEX_HANDOFF;
+  if (value === undefined) return false;
+
+  return ['0', 'false', 'off', 'no', 'disabled'].includes(value.trim().toLowerCase());
 }
 
 function parseJson(value) {

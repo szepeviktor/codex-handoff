@@ -12,7 +12,7 @@
     "codex-handoff-start": "bin/codex-handoff-start.js"
   },
   "scripts": {
-    "test": "node --check bin/codex-handoff-start.js"
+    "test": "node --check bin/codex-handoff-start.js && node --test"
   },
   "engines": {
     "node": ">=18"

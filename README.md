@@ -14,7 +14,7 @@ directory.
 - Loads handoff context only when a previous final answer contains a
   `codex-handoff` fenced block.
 - Matches by the session root directory.
-- Shows a short startup message when handoff context was loaded.
+- Shows a hook status message after the first prompt when handoff context was loaded.
 
 ## Usage
 
@@ -49,6 +49,12 @@ Codex will write a block like:
 When a later Codex session starts in the same root directory, the hook injects
 that block as optional background context.
 
+To start a session without loading handoff context:
+
+```bash
+CODEX_HANDOFF=0 codex
+```
+
 ## Install
 
 Install it from GitHub:
@@ -73,6 +79,7 @@ parses explicit handoff blocks.
 
 Environment knobs:
 
+- `CODEX_HANDOFF=0`: disable handoff loading for the current Codex process
 - `CODEX_HANDOFF_MAX_FILES`: maximum session files to inspect, default `200`
 - `CODEX_HANDOFF_MAX_BYTES`: skip session files larger than this, default `50MB`
 - `CODEX_HANDOFF_MAX_CONTEXT_CHARS`: maximum injected handoff size, default `12000`
