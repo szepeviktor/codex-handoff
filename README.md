@@ -54,7 +54,7 @@ that block as optional background context.
 Install it from GitHub:
 
 ```bash
-npx codex plugin marketplace add szepeviktor/codex-handoff --sparse marketplace
+npx codex plugin marketplace add szepeviktor/codex-handoff
 npx codex plugin add codex-handoff@codex-handoff
 ```
 
