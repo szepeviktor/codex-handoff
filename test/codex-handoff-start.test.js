@@ -53,6 +53,33 @@ test('loads matching handoff when enabled', (t) => {
   assert.match(output.hookSpecificOutput.additionalContext, /Loaded from fixture/);
 });
 
+test('does not fall back past latest matching session without handoff', (t) => {
+  const fixture = makeSessionFixture(t);
+  const latestSession = path.join(fixture.sessionDir, 'latest-without-handoff.jsonl');
+
+  fs.writeFileSync(latestSession, sessionJsonl(fixture.root));
+  fs.utimesSync(fixture.previousSession, new Date('2026-09-14T00:00:00Z'), new Date('2026-09-14T00:00:00Z'));
+  fs.utimesSync(latestSession, new Date('2026-09-14T00:01:00Z'), new Date('2026-09-14T00:01:00Z'));
+
+  const result = spawnSync(process.execPath, [bin], {
+    cwd: fixture.root,
+    env: {
+      ...process.env,
+      CODEX_HOME: fixture.codexHome,
+      CODEX_HANDOFF: '',
+    },
+    input: JSON.stringify({
+      cwd: fixture.root,
+      transcript_path: fixture.currentSession,
+    }),
+    encoding: 'utf8',
+  });
+
+  assert.equal(result.status, 0);
+  assert.equal(result.stderr, '');
+  assert.deepEqual(JSON.parse(result.stdout), { continue: true });
+});
+
 function makeSessionFixture(t) {
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-handoff-test-'));
   const root = path.join(temp, 'project');
@@ -67,7 +94,7 @@ function makeSessionFixture(t) {
   fs.writeFileSync(currentSession, '');
   t.after(() => fs.rmSync(temp, { recursive: true, force: true }));
 
-  return { root, codexHome, currentSession };
+  return { root, codexHome, currentSession, previousSession, sessionDir };
 }
 
 function previousSessionJsonl(root) {
@@ -75,7 +102,7 @@ function previousSessionJsonl(root) {
     version: 1,
     root,
     created_at: '2026-09-14T00:00:00Z',
-    ttl_hours: 72,
+    ttl_hours: 0,
     summary: ['Loaded from fixture'],
     open_items: [],
     verification: [],
@@ -96,6 +123,30 @@ function previousSessionJsonl(root) {
           {
             type: 'output_text',
             text: ['```codex-handoff', JSON.stringify(handoff), '```'].join('\n'),
+          },
+        ],
+      },
+    }),
+    '',
+  ].join('\n');
+}
+
+function sessionJsonl(root) {
+  return [
+    JSON.stringify({
+      type: 'session_meta',
+      payload: { cwd: root },
+    }),
+    JSON.stringify({
+      type: 'response_item',
+      payload: {
+        type: 'message',
+        role: 'assistant',
+        phase: 'final_answer',
+        content: [
+          {
+            type: 'output_text',
+            text: 'No handoff in this session.',
           },
         ],
       },

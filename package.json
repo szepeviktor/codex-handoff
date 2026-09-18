@@ -9,10 +9,11 @@
     "url": "git+ssh://git@github.com/szepeviktor/codex-handoff.git"
   },
   "bin": {
-    "codex-handoff-start": "bin/codex-handoff-start.js"
+    "codex-handoff-start": "bin/codex-handoff-start.js",
+    "codex-handoff-stop": "bin/codex-handoff-stop.js"
   },
   "scripts": {
-    "test": "node --check bin/codex-handoff-start.js && node --test"
+    "test": "node --check bin/codex-handoff-start.js && node --check bin/codex-handoff-stop.js && node --test"
   },
   "engines": {
     "node": ">=18"

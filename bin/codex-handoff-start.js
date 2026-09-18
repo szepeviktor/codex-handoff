@@ -50,8 +50,9 @@ async function findLatestHandoff(context) {
   for (const entry of files) {
     const session = await scanSession(entry.file);
     if (!session || !sameSessionRoot(session, context)) continue;
+
     const handoff = latestValidHandoff(session.messages, context.sessionRoot);
-    if (handoff) return { ...handoff, session };
+    return handoff ? { ...handoff, session } : null;
   }
 
   return null;
